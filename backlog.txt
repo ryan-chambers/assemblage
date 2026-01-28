@@ -1,0 +1,10 @@
+- need to tweak import_wine.py to handle village information (ie, no producer)
+- pinecone records can be paginated, retrieved. Could this be useful for something?
+    - https://burgundy-notes-zkr0rv0.svc.aped-4627-b74a.pinecone.io/vectors/list?prefix=&namespace=__default__&limit=20
+- try using hybrid index
+    - this can't be tested locally because docker container does not support embedding inference
+    - would take more time (and money?) to try
+- try multi-index (semantic and lexical search)
+    - can't be tested locally
+    - re-rank could be added
+    - potentially requires more money spent on pinecone for testing
