@@ -1,4 +1,3 @@
-- need to tweak import_wine.py to handle village information (ie, no producer)
 - pinecone records can be paginated, retrieved. Could this be useful for something?
     - https://burgundy-notes-zkr0rv0.svc.aped-4627-b74a.pinecone.io/vectors/list?prefix=&namespace=__default__&limit=20
 - try using hybrid index

@@ -3,35 +3,14 @@ from pinecone.grpc import GRPCClientConfig
 from pinecone import ServerlessSpec
 import uuid
 from wine_guide import index_name, embedList, ProducerNotes, WineNote
-from pc_client import create_pinecone_client
+from pc_client import create_pinecone_client, create_index_if_not_exists
 import re
-import sys
+from parse_utils import strip_and_fix_chars
 
 # Allowed sources. Update to add more in future
 ALLOWED_SOURCES = ["New French Wine", "Bourgogne Aujourd'hui", "My Notes", "Burgundy Direct", "Other", "Clive Coates Favourite Burgundies", "Bill Nanson Burgundy"]
 
 pc = create_pinecone_client()
-
-def create_index():
-    if not pc.has_index(name=index_name):
-        print('Creating index...')
-        pc.create_index(
-            name=index_name,
-            dimension=3072,  # dimensionality of text-embedding-large-003
-            metric='dotproduct',
-            spec=ServerlessSpec(
-                cloud='aws',
-                region='us-east-1'
-            )
-        )
-    else:
-        print('Index already exists.')
-
-def strip_and_fix_chars(s: str) -> str:
-    s = s.strip()
-    s = s.replace('–', '-')  # en-dash to hyphen
-    s = s.replace('\u2019', "'")  # right single quotation mark to apostrophe
-    return s
 
 def parse_domain(chunk: str, source: str) -> ProducerNotes:
     chunk = strip_and_fix_chars(chunk)
@@ -56,7 +35,6 @@ def parse_domain(chunk: str, source: str) -> ProducerNotes:
         else:
             raise ValueError(f"Unrecognized line format: {line}")
 
-    # TODO model producer village?
     dn = ProducerNotes(producer=producer_name, producer_notes=producer_notes, wines=wines, raw=chunk)
     # print(f"Parsed domaine: {dn}")
     return dn
@@ -111,7 +89,6 @@ def process_input_file(input_file_name: str, batch_size: int = 100):
 
     # print(f"Chunks: {chunks}")
 
-    # TODO may eventually need to do this in batches if files get too big
     embeddings = embedList(chunks)
 
     index = pc.Index(index_name, grpc_config=GRPCClientConfig(secure=False))
@@ -196,7 +173,9 @@ def main():
     args = parser.parse_args()
 
     print(f"Input file: {args.input_file}")
-    create_index()
+
+    create_index_if_not_exists(pc)
+
     process_input_file(args.input_file)
 
 if __name__ == "__main__":

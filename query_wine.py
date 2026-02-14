@@ -7,7 +7,7 @@ pc = create_pinecone_client()
 
 def retrieval_augmented_prompt(query) -> list[WineNote]:
     query_results = index.query(vector = embedChunk(query), top_k=10, include_metadata=True, include_values=False)
-    # pprint.pprint(f"query_results: {query_results}")
+    pprint.pprint(f"query_results: {query_results}")
     contexts = [
         WineNote(
             note=match.metadata['chunk'], 
@@ -47,18 +47,19 @@ index = pc.Index(name=index_name, grpc_config=GRPCClientConfig(secure=False))
 # Volnay 1er cru Les Fremiets 2012, Domaine Charles Pères et Fille, 126 euros  
 # Chassagne Montrachet Vieilles vignes 2022, Marc Colin, 67 euros  
 # Chassagne Montrachet 2019, Domaine Bernard Bachelet, 73 euros  """
-query = """
-Gevrey-Chambertin 1er Cru "Clos des Issarts" Monopole, Domaine Faiveley 2020, 290.00€
+# query = """
+# Gevrey-Chambertin 1er Cru "Clos des Issarts" Monopole, Domaine Faiveley 2020, 290.00€
 
-Gevrey-Chambertin 1er Cru "Combe aux Moines", Domaine Faiveley 2018, 230.00€
+# Gevrey-Chambertin 1er Cru "Combe aux Moines", Domaine Faiveley 2018, 230.00€
 
-Gevrey-Chambertin 1er Cru "Lavaux Saint-Jacques", Domaine Raphaël Dubois, 149.00€
+# Gevrey-Chambertin 1er Cru "Lavaux Saint-Jacques", Domaine Raphaël Dubois, 149.00€
 
-Gevrey-Chambertin 1er Cru "Lavaux Saint-Jacques", Domaine Jean-Luc Burguet, 220.00€
+# Gevrey-Chambertin 1er Cru "Lavaux Saint-Jacques", Domaine Jean-Luc Burguet, 220.00€
 
-Gevrey-Chambertin 1er Cru "Champeaux", Domaine Olivier Guyot 2020, 175.00€
+# Gevrey-Chambertin 1er Cru "Champeaux", Domaine Olivier Guyot 2020, 175.00€
 
-Gevrey-Chambertin 1er Cru "Aux Échézeaux", Domaine Taupenot-Merme 2020, 200.00€"""
+# Gevrey-Chambertin 1er Cru "Aux Échézeaux", Domaine Taupenot-Merme 2020, 200.00€"""
+query = "What are the characteristics of Volnay?"
 # query = "Domaine Tollot Beaut"
 # query = "Tollot Beaut"
 # query = "Second derivative of a sinusoidal function"
