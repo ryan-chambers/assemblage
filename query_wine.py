@@ -59,7 +59,7 @@ index = pc.Index(name=index_name, grpc_config=GRPCClientConfig(secure=False))
 # Gevrey-Chambertin 1er Cru "Champeaux", Domaine Olivier Guyot 2020, 175.00€
 
 # Gevrey-Chambertin 1er Cru "Aux Échézeaux", Domaine Taupenot-Merme 2020, 200.00€"""
-query = "What are the characteristics of Volnay?"
+query = "Tell me about Domaine Rollin"
 # query = "Domaine Tollot Beaut"
 # query = "Tollot Beaut"
 # query = "Second derivative of a sinusoidal function"
