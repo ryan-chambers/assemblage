@@ -56,7 +56,7 @@ class ProducerNotes:
     def consolidated_note(self) -> str:
         if self.producer_notes:
             return self.producer + '. ' + '. '.join(note.capitalize() for note in self.producer_notes)
-        return self.producer
+        return '' # Don't want chunk that is only producer name
 
 class DocumentNotes:
     def __init__(self, name: str, notes: list[str], raw: str):

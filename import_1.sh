@@ -1,1 +1,2 @@
-python3 import_wine.py ../wine_notes/rag_source_data/burgundy-bill-nanson.txt
+# python3 import_wine.py ../wine_notes/rag_source_data/burgundy-bill-nanson.txt
+python3 import_wine.py ../wine_notes/rag_source_data/favourite-burgundies-clive-coates.txt
