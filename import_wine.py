@@ -72,7 +72,8 @@ def map_domaine(domaine: ProducerNotes) -> list[str]:
 
     domain_note = domaine.consolidated_note()
     if domain_note == '':
-        print(f"Warning: Domaine {domaine.producer} has no notes and will be skipped as a chunk.")
+        # print(f"Warning: Domaine {domaine.producer} has no notes and will be skipped as a chunk.")
+        None
     else:
         chunks.append(domain_note)
 
