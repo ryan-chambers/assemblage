@@ -70,7 +70,12 @@ def read_domaines(input_file_name: str) -> tuple[list[ProducerNotes], str]:
 def map_domaine(domaine: ProducerNotes) -> list[str]:
     chunks = []
 
-    chunks.append(domaine.consolidated_note())
+    domain_note = domaine.consolidated_note()
+    if domain_note == '':
+        print(f"Warning: Domaine {domaine.producer} has no notes and will be skipped as a chunk.")
+    else:
+        chunks.append(domain_note)
+
     chunks.extend([wine.note for wine in domaine.wines])
 
     return chunks
