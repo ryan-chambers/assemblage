@@ -159,7 +159,9 @@ def normalize_producer(producer: str) -> str:
     p = producer.title()
     if p.startswith("D."):
         p = "Domaine " + p[2:].strip()
-    
+    if p.startswith("Domaine "):
+        p = p[8:].strip()
+        # print(f"Normalized producer name from '{producer.title()}' to '{p}'")
     return p
 
 def get_text_before_comma(text: str) -> str:
